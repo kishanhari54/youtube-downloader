@@ -1,0 +1,24 @@
+<form [formGroup]="youtube">
+
+    <label for="url"> URL</label>
+    <input type="url" id="url" formControlName='url'>
+
+    <button (click)="Fetch()"> Fetch Data</button>
+
+    <ng-container *ngIf='fetched'>
+        <hr> Video Name : {{videoDetails.title}}
+        <hr> <img *ngIf="videoDetails.thumbnails" [src]="videoDetails.thumbnails[0].url" alt="">
+        <hr>
+
+
+        <select name="formats" id="formats" formControlName='format'>
+      <option  *ngFor="let format of videoFormats"  [ngValue]="format.format">{{format.format}}</option>
+    </select>
+        <select name="quality" id="quality" formControlName='quality'>
+      <option *ngFor="let format of videoFormats" [ngValue]="format.itag">{{format.quality}}</option>
+    </select>
+        <button (click)="download()"> Download</button>
+    </ng-container>
+</form>
+
+<mat-spinner *ngIf="loading"></mat-spinner>
